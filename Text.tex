@@ -1,7 +1,8 @@
-\documentclass[runningheads,a4paper]{llncs}
+\documentclass[paper]{article}
+%\documentclass[runningheads,a4paper]{llncs}
 \usepackage{natbib}
-\setcitestyle{round}
-\setcitestyle{aysep={}}
+%\setcitestyle{round}
+%\setcitestyle{aysep={}}
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{amsmath}
@@ -19,20 +20,33 @@
 
 %\mainmatter
 
-\title{Combining Molecular dynamics and NMR experiments to investigate Insodines induced flexibility in dsRNA}
+\title{Combining Molecular dynamics and NMR experiments to investigate Inosines induced flexibility in dsRNA}
 %\titlerunning{\ }
 
 \author{Valerio Piomponi \and Giovanni Bussi}
-\institute{Scuola Internazionale Superiore di Studi Avanzati - SISSA,\\ via Bonomea 265, 34136 Trieste, Italy}
+%\institute{Scuola Internazionale Superiore di Studi Avanzati - SISSA,\\ via Bonomea 265, 34136 Trieste, Italy}
 \maketitle
 
 \section{Methods}
+\subsection{Simulation Settings}
+Simulations were performed with GROMACS 2020 \citep{abraham2015gromacs}, using TIP3P water \citep{jorgensen1983comparison}, the AMBER force field for nucleic acids (AMBER99 + PARMBSC0 + $\chi$OL3 ) \cite{cornell1995second} \cite{perez2007refinement} \cite{zgarbova2011refinement} plus modrna08 for Inosines \cite{aduri2007amber}, and ion parameters from Joung and Cheatham \cite{joung2008determination}. The stochastic velocity rescaling thermostat \cite{bussi2007canonical} was used to keep the system at a temperature of 300 K in combination with the Cell-rescale \cite{bernetti2020pressure} barostat to keep the pressure at 1 bar. Long-range electrostatic interactions were handled by particle-mesh Ewald \cite{darden1993particle}. The system had 53868 atoms, 1274 of which constitute the solute; the rest were 72 sodium ions, 34 chloride ions and 52488 water molecules, resulting in a neutralized system with a salt concentration of 0.1 mol/l. 
+An integration step of 0.002 ps was used, and trajectory frames were saved every 5000 steps with full precision, but also evry 500 steps with a compressed format and without water atoms.
+MD simulations were performed using an HREX scheme (ref) with eight replicas. In these replica, a well-tempred Metadynamics is performed with a strenght which is scaling along the replica, in such a way that the first replica is unbiased. Exchanges within replica are prposed every 200 steps.
+
+
+
 \subsection{Enhanced Sampling}
 \subsection{Ensemble Refinement}
 \subsection{Clustering}
 \section{Preliminary simulations}
-\vp{qui voglio illustrare le prime simulazioni in cui non ho usato il Max Ent in produzione. Ho usato sia TIP3 che OPC, in entrambi casi le polazioni di C2endo sono molto basse... trasformare le tabelle che ho in slides in grafici. Mostrare anche istogrammi J couplings prima e dopo Max Ent.} 
+\vp{qui voglio illustrare le prime simulazioni in cui non ho usato il Max Ent in produzione. Ho usato sia TIP3 che OPC (le simulazioni in OPC le ho eliminate....), in entrambi casi le polazioni di C2endo sono molto basse... trasformare le tabelle che ho in slides in grafici. Mostrare anche istogrammi J couplings prima e dopo Max Ent.} 
+The first set of simulations were performed using the Metadynamics integrated in an HREX as described in section 1.1. The simulations are 350 ns (\vp{in realtà 366 e spicci ma forse è meglio arrotondare}) per replica, for a total of 350nsx8=2.8 $\mu$s. For the analysis, the full concatenated demuxed trajectory was used, reweighting it with respect to the unbiased hamiltonian using the WHAM as implemented in Bussilab. The populations of the C2\'-endo conformation of the sugar puckerings as predicted by the MD are shown in the table and result to be singificatively low with respect to what should be expected from NMR experiments. Indeed, the J-couplings backcalucated (with Condon parameters in this case) from the reweighted trajectories are significatively smaller than those measured by NMR. The same table shows also the C2\'-endo populations and the backcalcuated J-couplings for the refined ensemble in which the Maximum Entropy method was used to enforce the experimental averages, both with a regularization term or not. 
+
 \section{Results}
 \section{Discussion}
+
+
+\bibliographystyle{unsrt}
+\bibliography{main}% Produces the bibliography via BibTeX
 
 \end{document}
